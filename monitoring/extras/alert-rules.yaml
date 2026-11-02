@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: lab-alert-rules
+  namespace: monitoring
+spec:
+  groups:
+    - name: lab.rules
+      rules:
+        - alert: LabTestAlwaysFiring
+          expr: vector(1)
+          for: 1m
+          labels:
+            severity: info
+          annotations:
+            summary: "Test alert. It fires on purpose to prove the Git to Prometheus to Alertmanager path works."
+        - alert: NodeMemoryHigh
+          expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 > 85
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Memory above 85% on {{ $labels.instance }}"
