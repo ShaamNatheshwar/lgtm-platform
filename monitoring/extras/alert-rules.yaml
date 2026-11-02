@@ -15,9 +15,9 @@ spec:
           annotations:
             summary: "Test alert. It fires on purpose to prove the Git to Prometheus to Alertmanager path works."
         - alert: NodeMemoryHigh
-          expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 > 85
+          expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 > 80
           for: 5m
           labels:
             severity: warning
           annotations:
-            summary: "Memory above 85% on {{ $labels.instance }}"
+            summary: "Memory above 80% on {{ $labels.instance }}"
