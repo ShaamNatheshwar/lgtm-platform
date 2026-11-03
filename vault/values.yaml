@@ -1,0 +1,18 @@
+injector:
+  enabled: false        # keep it simple, no sidecar injection for now
+
+server:
+  dev:
+    enabled: true       # in-memory, auto-unsealed. LAB ONLY.
+    devRootToken: "root"
+  dataStorage:
+    enabled: false
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+ui:
+  enabled: true
+  serviceType: NodePort
+  serviceNodePort: 32200
