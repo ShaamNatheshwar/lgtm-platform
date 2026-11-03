@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: sample-app-rules
+  namespace: monitoring
+spec:
+  groups:
+    - name: sample-app.rules
+      rules:
+        - alert: SampleAppDown
+          expr: (count(nginx_up{namespace="sample-app"} == 1) or vector(0)) < 2
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Fewer than 2 sample-app pods are healthy"
+        - alert: SampleAppTrafficHigh
+          expr: sum(rate(nginx_http_requests_total{namespace="sample-app"}[1m])) > 2
+          for: 30s
+          labels:
+            severity: info
+          annotations:
+            summary: "Sample app is getting more than 2 requests per second"

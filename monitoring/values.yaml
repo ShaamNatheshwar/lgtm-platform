@@ -23,6 +23,9 @@ prometheus:
     ruleSelectorNilUsesHelmValues: false
 
 alertmanager:
+  service:
+    type: NodePort
+    nodePort: 32300
   alertmanagerSpec:
     resources:
       requests:
